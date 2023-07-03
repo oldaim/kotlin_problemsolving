@@ -42,3 +42,7 @@ bin/
 .DS_Store
 
 .idea/**
+.idea/vcs.xml
+.idea/misc.xml
+.idea/gradle.xml
+.idea/aws.xml
