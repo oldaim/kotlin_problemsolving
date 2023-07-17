@@ -1,54 +1,38 @@
 import java.util.*
+import kotlin.math.max
+import kotlin.math.min
 
 class Main
 
 fun main() {
-    solution(arrayOf(".#...", "..#..", "...#."))
+    solution(arrayOf(".##...##.", "#..#.#..#", "#...#...#", ".#.....#.", "..#...#..", "...#.#...", "....#...."))
 }
 
 
 
     fun solution(wallpaper: Array<String>): IntArray {
         var answer: IntArray = intArrayOf()
-        var boolean = Array(wallpaper.size){Array(wallpaper.first().length){false}}
-        var height = wallpaper.size - 1
-        var width = wallpaper.first().length - 1
-        var queue = LinkedList<Pair<Int,Int>>()
-        var start: Pair<Int,Int> = Pair(0,0)
-        var end: Pair<Int,Int> = Pair(0,0)
-        var dx = arrayOf(Pair(0,1),Pair(0,-1),Pair(1,0),Pair(-1,0))
+        var lux = Int.MAX_VALUE
+        var luy = Int.MAX_VALUE
+        var rdx = 0
+        var rdy = 0
 
-        loop@ for ((count,line) in wallpaper.withIndex()){
-             for((count2,l) in line.withIndex()){
-                boolean[count][count2] = true
-                if (l == '#'){
-                    start = Pair(count,count2)
-                    queue.add(start)
-                    break@loop
+        for((count, y) in wallpaper.withIndex()){
+            for((count2, x) in y.withIndex()){
+                if(x == '#'){
+                    lux = min(lux, count2)
+                    luy = min(luy, count)
+                    rdx = max(rdx, count2)
+                    rdy = max(rdy, count)
                 }
             }
-            break
         }
 
-        while (!queue.isEmpty()){
-            var element = queue.pop()
-            for (d in dx){
-                var next = Pair( element.first + d.first, element.second + d.second )
-                if (next.first >= 0 && next.first <= height && next.second >= 0 && next.second <= width){
-                    if(!boolean[next.first][next.second]){
-                        queue.add(next)
-                        boolean[next.first][next.second]
-                        if (wallpaper[next.first][next.second] == '#')
-                            end = Pair(next.first,next.second)
-                    }
 
-                }
 
-            }
-        }
-        println("${start.first} ${start.second}")
-        println("${end.first} ${end.second}")
 
+
+        answer = intArrayOf(luy, lux, rdy + 1, rdx + 1)
         return answer
     }
 
