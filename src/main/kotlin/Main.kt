@@ -1,59 +1,54 @@
+import java.util.*
+
 class Main
 
 fun main() {
-    solution(arrayOf("SOO","OXX","OOO"), arrayOf("E 2","S 2","W 1"))
+    solution(arrayOf(".#...", "..#..", "...#."))
 }
 
-fun solution(park: Array<String>, routes: Array<String>): IntArray {
-    var answer: IntArray = intArrayOf()
-    val parkDimension = ArrayList<CharArray>()
-    val height = routes.size
-    var width = 0
-    var currentLocation = Pair(0,0)
-    var moveLocation = Pair(0,0)
 
-    for (line in park) {
-        parkDimension.add(line.toCharArray())
-        width = line.length
-    }
 
-    for (route in routes){
+    fun solution(wallpaper: Array<String>): IntArray {
+        var answer: IntArray = intArrayOf()
+        var boolean = Array(wallpaper.size){Array(wallpaper.first().length){false}}
+        var height = wallpaper.size - 1
+        var width = wallpaper.first().length - 1
+        var queue = LinkedList<Pair<Int,Int>>()
+        var start: Pair<Int,Int> = Pair(0,0)
+        var end: Pair<Int,Int> = Pair(0,0)
+        var dx = arrayOf(Pair(0,1),Pair(0,-1),Pair(1,0),Pair(-1,0))
 
-        var direction = route.substringBefore(" ")
-        var load = route.substringAfter(" ").toInt()
-        var destination =""
-        when(direction){
-            "N" -> {
-                if(currentLocation.second - load in 0..height - 1 && parkDimension[currentLocation.second - load][currentLocation.first] != 'X')
-                    moveLocation = Pair(currentLocation.first, currentLocation.second - load)
-                println("${direction} ${moveLocation.first} ${moveLocation.second}")
+        loop@ for ((count,line) in wallpaper.withIndex()){
+             for((count2,l) in line.withIndex()){
+                boolean[count][count2] = true
+                if (l == '#'){
+                    start = Pair(count,count2)
+                    queue.add(start)
+                    break@loop
+                }
             }
-
-            "S" -> {
-                if(currentLocation.second + load in 0..height - 1 && parkDimension[currentLocation.second + load][currentLocation.first] != 'X')
-                    moveLocation = Pair(currentLocation.first, currentLocation.second + load)
-                println("${direction} ${moveLocation.first} ${moveLocation.second}")
-            }
-
-            "W" -> {
-                if(currentLocation.first - load in 0..width - 1 && parkDimension[currentLocation.second][currentLocation.first - load] != 'X')
-                    moveLocation = Pair(currentLocation.first - load, currentLocation.second)
-                println("${direction} ${moveLocation.first} ${moveLocation.second}")
-            }
-
-            "E" -> {
-                if(currentLocation.first + load in 0..width - 1 && parkDimension[currentLocation.second][currentLocation.first + load] != 'X')
-                    moveLocation = Pair(currentLocation.first + load, currentLocation.second)
-                println("${direction} ${moveLocation.first} ${moveLocation.second}")
-            }
-
+            break
         }
 
-        currentLocation = moveLocation
+        while (!queue.isEmpty()){
+            var element = queue.pop()
+            for (d in dx){
+                var next = Pair( element.first + d.first, element.second + d.second )
+                if (next.first >= 0 && next.first <= height && next.second >= 0 && next.second <= width){
+                    if(!boolean[next.first][next.second]){
+                        queue.add(next)
+                        boolean[next.first][next.second]
+                        if (wallpaper[next.first][next.second] == '#')
+                            end = Pair(next.first,next.second)
+                    }
 
+                }
+
+            }
+        }
+        println("${start.first} ${start.second}")
+        println("${end.first} ${end.second}")
+
+        return answer
     }
 
-    answer = intArrayOf(currentLocation.first, currentLocation.second)
-
-    return answer
-}
