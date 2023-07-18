@@ -5,34 +5,24 @@ import kotlin.math.min
 class Main
 
 fun main() {
-    solution(arrayOf(".##...##.", "#..#.#..#", "#...#...#", ".#.....#.", "..#...#..", "...#.#...", "....#...."))
+    solution(8,4, intArrayOf(2,3,6))
 }
 
 
 
-    fun solution(wallpaper: Array<String>): IntArray {
-        var answer: IntArray = intArrayOf()
-        var lux = Int.MAX_VALUE
-        var luy = Int.MAX_VALUE
-        var rdx = 0
-        var rdy = 0
+fun solution(n: Int, m: Int, section: IntArray): Int {
+    var answer: Int = 0
 
-        for((count, y) in wallpaper.withIndex()){
-            for((count2, x) in y.withIndex()){
-                if(x == '#'){
-                    lux = min(lux, count2)
-                    luy = min(luy, count)
-                    rdx = max(rdx, count2)
-                    rdy = max(rdy, count)
-                }
-            }
-        }
+    val first = section.first()
+    val last = section.last()
+    var distance = last - first
 
+    while (distance >= 0){
 
-
-
-
-        answer = intArrayOf(luy, lux, rdy + 1, rdx + 1)
-        return answer
+        distance -= m
+        answer++
     }
+    println(answer)
+    return answer
+}
 
