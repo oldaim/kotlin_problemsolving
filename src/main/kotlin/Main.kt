@@ -4,25 +4,31 @@ import kotlin.math.min
 
 class Main
 
+
 fun main() {
-    solution(8,4, intArrayOf(2,3,6))
+    solution("aukks","wbqd", 5)
 }
 
+fun solution(s: String, skip: String, index: Int): String {
+    var answer: String = ""
+    val skipSet = HashSet<Char>()
+    for (letter in skip){
+        skipSet.add(letter)
+    }
 
+    for (letter in s){
+        var count = 1
+        var password = letter
+        while (count <= index){
+            password = password.plus(1)
+            if (password.minus('a') > 25) password -= 26
+            if (skipSet.contains(password)) continue
+            else count++
+        }
 
-fun solution(n: Int, m: Int, section: IntArray): Int {
-    var answer: Int = 0
+        answer += password
 
-    val first = section.first()
-    val last = section.last()
-    var distance = last - first
-
-    while (distance >= 0){
-
-        distance -= m
-        answer++
     }
     println(answer)
     return answer
 }
-
