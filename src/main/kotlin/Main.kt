@@ -6,29 +6,21 @@ class Main
 
 
 fun main() {
-    solution("aukks","wbqd", 5)
+    solution("10203", "15")
 }
 
-fun solution(s: String, skip: String, index: Int): String {
-    var answer: String = ""
-    val skipSet = HashSet<Char>()
-    for (letter in skip){
-        skipSet.add(letter)
+fun solution(t: String, p: String): Int {
+    var answer: Int = 0
+    var sub = p.length
+    var subLong = p.toLong()
+
+    for (i in t.indices){
+        var next = i + sub
+        if(next >= t.length) break
+        var subLongNext = t.substring(i, i+sub).toLong()
+        if(subLongNext <= subLong) answer++
     }
 
-    for (letter in s){
-        var count = 1
-        var password = letter
-        while (count <= index){
-            password = password.plus(1)
-            if (password.minus('a') > 25) password -= 26
-            if (skipSet.contains(password)) continue
-            else count++
-        }
 
-        answer += password
-
-    }
-    println(answer)
     return answer
 }
