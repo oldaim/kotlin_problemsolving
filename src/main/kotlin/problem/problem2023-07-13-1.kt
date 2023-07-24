@@ -1,6 +1,6 @@
 package problem
 
-class `problem2023_7_13-1` {
+class `problem2023-07-13-1` {
     /**
      *  프로그래머스 Level1 공원 산책
      * */

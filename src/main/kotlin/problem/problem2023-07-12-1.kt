@@ -1,6 +1,6 @@
 package problem
 
-class `problem2023_7_12-1` {
+class `problem2023-07-12-1` {
 
     /*
     * 프로그래머스 Level1 달리기 경주

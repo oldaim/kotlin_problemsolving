@@ -1,10 +1,9 @@
 package problem
 
-import java.util.*
 import kotlin.math.max
 import kotlin.math.min
 
-class `problem2023-07-17` {
+class `problem2023-07-17-1` {
 
     fun solution(wallpaper: Array<String>): IntArray {
         var answer: IntArray = intArrayOf()

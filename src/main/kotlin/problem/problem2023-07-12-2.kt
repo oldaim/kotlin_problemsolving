@@ -1,6 +1,6 @@
 package problem
 
-class `problem2023_7_12-2` {
+class `problem2023-07-12-2` {
 
     fun solution(name: Array<String>, yearning: IntArray, photo: Array<Array<String>>): IntArray {
         var answer: IntArray = intArrayOf()
