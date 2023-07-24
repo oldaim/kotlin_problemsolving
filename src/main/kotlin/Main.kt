@@ -6,21 +6,41 @@ class Main
 
 
 fun main() {
-    solution("10203", "15")
+    solution("aaabbaccccabba")
 }
 
-fun solution(t: String, p: String): Int {
+fun solution(s: String): Int {
     var answer: Int = 0
-    var sub = p.length
-    var subLong = p.toLong()
+    var st = s.first()
+    var point = 0
+    var trash = ""
+    var countFirst = 0
+    var countNotFirst = 0
 
-    for (i in t.indices){
-        var next = i + sub
-        if(next >= t.length) break
-        var subLongNext = t.substring(i, i+sub).toLong()
-        if(subLongNext <= subLong) answer++
+    for ((count,letter) in s.withIndex()){
+
+        if (letter == st) countFirst++ else countNotFirst++
+        if (countFirst == countNotFirst) {
+
+
+            if (count + 1 < s.length) {
+                answer++
+                st = s[count + 1]
+                trash = s.substring(count + 1 , s.length)
+            }
+
+
+            countNotFirst = 0
+            countFirst = 0
+        }
+
     }
 
 
+    if (trash.length > 0) answer++
+
+    println(answer)
+
     return answer
 }
+
