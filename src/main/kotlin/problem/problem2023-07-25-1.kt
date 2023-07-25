@@ -11,18 +11,28 @@ class `problem2023-07-25-1` {
                 list.add(s)
                 list.sort()
                 list.reverse()
+
+                ansList.add(list.last())
             }
             else{
-                if (list[k] < s) {
-                    ansList.add(list[k])
-                    list[k] = s
+                if (list[k -1] < s) {
+
+                    list[k -1] = s
+                    list.sort()
+                    list.reverse()
+                    ansList.add(list[k-1])
+                }else{
+                    ansList.add(list[k-1])
                 }
+                list.sort()
+                list.reverse()
             }
+
         }
 
         answer = ansList.toIntArray()
 
-        println(answer)
+
 
         return answer
     }
