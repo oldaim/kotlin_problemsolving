@@ -6,40 +6,41 @@ class Main
 
 
 fun main() {
-    solution("aaabbaccccabba")
+    solution(3, intArrayOf(10, 100, 20, 150, 1, 100, 200))
 }
 
-fun solution(s: String): Int {
-    var answer: Int = 0
-    var st = s.first()
-    var point = 0
-    var trash = ""
-    var countFirst = 0
-    var countNotFirst = 0
+fun solution(k: Int, score: IntArray): IntArray {
+    var answer: IntArray = intArrayOf()
+    var list = ArrayList<Int>()
+    var ansList = ArrayList<Int>()
 
-    for ((count,letter) in s.withIndex()){
+    for ((count, s) in score.withIndex()){
+        if(count < k - 1) {
+            list.add(s)
+            list.sort()
+            list.reverse()
 
-        if (letter == st) countFirst++ else countNotFirst++
-        if (countFirst == countNotFirst) {
-
-
-            if (count + 1 < s.length) {
-                answer++
-                st = s[count + 1]
-                trash = s.substring(count + 1 , s.length)
+            ansList.add(list.last())
+        }
+        else{
+            if (list[k -1] < s) {
+                list.sort()
+                list.reverse()
+                ansList.add(s)
+                list[k -1] = s
+            }else{
+                list.sort()
+                list.reverse()
+                ansList.add(list[k-1])
             }
 
-
-            countNotFirst = 0
-            countFirst = 0
         }
-
+        println(list.toString())
     }
 
+    answer = ansList.toIntArray()
 
-    if (trash.length > 0) answer++
 
-    println(answer)
 
     return answer
 }
