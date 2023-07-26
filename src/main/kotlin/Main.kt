@@ -6,54 +6,42 @@ class Main
 
 
 fun main() {
-    solution(10, 3, 2)
+    solution(3, 4, intArrayOf(1,2,3,1,2,3,1))
 }
 
-fun solution(number: Int, limit: Int, power: Int): Int {
+fun solution(k: Int, m: Int, score: IntArray): Int {
     /*
-    * 프로그래머스 Level 기사 단원의 무기
-    * 각 기사에게는 1번부터 Number 까지 번호가 지정
-    * 무기 구매 -> 기사 번호의 약수 개수에 해당하는 공격력을 가진 무기 구매
-    * limit 이상이라면 power 크기의 무기 구매해야함
-    * 1kg 당 공격력 1
-    * 몇키로? = answer
-    * 약수나 배수같은건 미리 배열로 저장해서 푸는게 좋다
+    * 사과는 상태에 따라 1,k 까지
+    * 한상자에 m 개씩 담아 포장 합니다. 남는 사과는 버립니다. 상자개수 score.length / m
+    * 과일 장수가 얻을 수 있는 최대 이익
+    * 그러면 각 상자당 최저 점수
     * */
-
     var answer: Int = 0
+    var numOfBox = (score.lastIndex + 1) / m
+    var mod = (score.lastIndex + 1) % m
+    var scoreList = score.toMutableList()
 
-    for(num in 1 .. number){
-        var ans = 0
-        ans = if (limit < numOfDivisor(num)) power else numOfDivisor(num)
-        answer += ans
+    if (numOfBox == 0) return 0
+
+    scoreList.sort()
+    println(scoreList.toString())
+    var boxList = scoreList.subList(mod, scoreList.lastIndex + 1)
+
+    println(boxList.toString())
+
+    var count = 0
+    var first = 0
+    while (count < numOfBox){
+
+        var subList = boxList.subList(first, first + m)
+        println(subList)
+        answer += subList.first() * m
+
+        first += m
+        count++
     }
 
     println(answer)
 
     return answer
 }
-
-fun numOfDivisor(num: Int): Int {
-    var answer = 0;
-    for (i in 1 .. num){
-        if(num % i == 0) {
-            when {
-                num / i < i -> {
-                    answer *= 2
-                    return answer
-                }
-                num / i == i -> {
-                    answer++
-                    answer = answer * 2 - 1
-                    return answer
-                }
-                else -> {
-                    answer++
-                }
-
-            }
-        }
-    }
-    return answer
-}
-
