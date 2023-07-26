@@ -9,6 +9,7 @@ class `problem2023-07-26-1` {
         * limit 이상이라면 power 크기의 무기 구매해야함
         * 1kg 당 공격력 1
         * 몇키로? = answer
+        * 약수나 배수같은건 미리 배열로 저장해서 푸는게 좋다
         * */
 
         var answer: Int = 0
@@ -19,13 +20,31 @@ class `problem2023-07-26-1` {
             answer += ans
         }
 
+        println(answer)
+
         return answer
     }
 
     fun numOfDivisor(num: Int): Int {
         var answer = 0;
         for (i in 1 .. num){
-            if(num % i == 0) answer++
+            if(num % i == 0) {
+                when {
+                    num / i < i -> {
+                        answer *= 2
+                        return answer
+                    }
+                    num / i == i -> {
+                        answer++
+                        answer = answer * 2 - 1
+                        return answer
+                    }
+                    else -> {
+                        answer++
+                    }
+
+                }
+            }
         }
         return answer
     }

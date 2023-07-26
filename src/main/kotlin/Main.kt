@@ -17,6 +17,7 @@ fun solution(number: Int, limit: Int, power: Int): Int {
     * limit 이상이라면 power 크기의 무기 구매해야함
     * 1kg 당 공격력 1
     * 몇키로? = answer
+    * 약수나 배수같은건 미리 배열로 저장해서 푸는게 좋다
     * */
 
     var answer: Int = 0
