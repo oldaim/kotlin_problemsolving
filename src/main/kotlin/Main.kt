@@ -8,28 +8,55 @@ class Main
 
 
 fun main() {
-    solution(3,1,20)
+    solution("5525", "1255")
 }
 
 
-fun solution(a: Int, b: Int, n: Int): Int {
-    var answer: Int = 0
-    var num = n
-    var mod = 0
-    var emptyBottle = 0
+fun solution(X: String, Y: String): String {
+    var answer: String = ""
+    val xMap = HashMap<Int, String>()
+    val yMap = HashMap<Int, String>()
+    val answerMap = HashMap<Int, String>()
 
-    while (num >= 1){
-        emptyBottle += (num / a) * b
-
-
-        num = num - (num / a) * a + (num / a) * b
-
+    for (ch in X){
+        var num = ch.toString().toInt()
+        if(xMap.containsKey(num)){
+            xMap[num] = xMap[num] + ch.toString()
+        }else{
+            xMap[num] = ch.toString()
+        }
     }
 
-    println(emptyBottle)
+    for (ch in Y){
 
-    answer = emptyBottle
+        var num = ch.toString().toInt()
 
+        if(yMap.containsKey(num)){
+            yMap[num] = yMap[num] + ch.toString()
+        }else{
+            yMap[num] = ch.toString()
+        }
+    }
+
+    var xKey = xMap.
+    var yKey = yMap.keys
+
+    for (x in xKey){
+        if(yKey.contains(x)){
+
+            var xString = xMap[x]!!
+            var yString = yMap[x]!!
+
+            answer += if (xString.length >= yString.length) yString else xString
+        }
+    }
+
+
+
+    if (answer == "") return "-1"
+    if (answer.startsWith("0")) return "0"
+
+    println(answer)
     return answer
 }
 
