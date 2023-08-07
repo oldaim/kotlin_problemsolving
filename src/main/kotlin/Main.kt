@@ -14,41 +14,44 @@ fun main() {
 
 fun solution(X: String, Y: String): String {
     var answer: String = ""
-    val xMap = HashMap<Int, String>()
-    val yMap = HashMap<Int, String>()
-    val answerMap = HashMap<Int, String>()
+    val xMap = HashMap<Char, String>()
+    val yMap = HashMap<Char, String>()
+
 
     for (ch in X){
-        var num = ch.toString().toInt()
-        if(xMap.containsKey(num)){
-            xMap[num] = xMap[num] + ch.toString()
+
+        if(xMap.containsKey(ch)){
+
+            xMap[ch] = xMap[ch] + ch.toString()
         }else{
-            xMap[num] = ch.toString()
+
+            xMap[ch] = ch.toString()
         }
     }
 
     for (ch in Y){
 
-        var num = ch.toString().toInt()
+        if(xMap.containsKey(ch)) {
 
-        if(yMap.containsKey(num)){
-            yMap[num] = yMap[num] + ch.toString()
-        }else{
-            yMap[num] = ch.toString()
+            if (yMap.containsKey(ch)) {
+                yMap[ch] = yMap[ch] + ch.toString()
+            }
+            else {
+                yMap[ch] = ch.toString()
+            }
         }
     }
 
-    var xKey = xMap.
-    var yKey = yMap.keys
+    var yKey = yMap.keys.sortedDescending()
 
-    for (x in xKey){
-        if(yKey.contains(x)){
+    for (y in yKey){
 
-            var xString = xMap[x]!!
-            var yString = yMap[x]!!
+
+            var xString = xMap[y]!!
+            var yString = yMap[y]!!
 
             answer += if (xString.length >= yString.length) yString else xString
-        }
+
     }
 
 

@@ -23,24 +23,25 @@ class `problem2023-08-01-2` {
         for (ch in Y){
 
             var num = ch.toString().toInt()
-
-            if(yMap.containsKey(num)){
-                yMap[num] = yMap[num]!! + 1
-            }else{
-                yMap[num] = 1
+            if(xMap.containsKey(num)) {
+                if (yMap.containsKey(num)) {
+                    yMap[num] = yMap[num]!! + 1
+                } else {
+                    yMap[num] = 1
+                }
             }
         }
 
         var xKey = xMap.keys
         var yKey = yMap.keys
 
-        for (x in xKey){
-            if(yKey.contains(x)){
+        for (y in yKey){
+            if(yKey.contains(y)){
 
-                var xNum = xMap[x]!!
-                var yNum = yMap[x]!!
+                var xNum = xMap[y]!!
+                var yNum = yMap[y]!!
 
-                answerMap[x.toString()] = if (yNum >= xNum) xNum else yNum
+                answerMap[y.toString()] = if (yNum >= xNum) xNum else yNum
             }
         }
 
