@@ -8,57 +8,34 @@ class Main
 
 
 fun main() {
-    solution("5525", "1255")
+    solution(arrayOf(intArrayOf(10,7), intArrayOf(12,3), intArrayOf(8,15), intArrayOf(14,7), intArrayOf(5,15)))
 }
 
 
-fun solution(X: String, Y: String): String {
-    var answer: String = ""
-    val xMap = HashMap<Char, String>()
-    val yMap = HashMap<Char, String>()
+fun solution(sizes: Array<IntArray>): Int {
+    var answer: Int = 0
+
+    var widthArray = sizes.sortedByDescending { it[0] }
+    var heightArray =  sizes.sortedByDescending { it[1] }
+    var countWidth = 0
+    var countHeight = 0
+
+    while (countHeight < widthArray.size && countWidth < widthArray.size){
 
 
-    for (ch in X){
-
-        if(xMap.containsKey(ch)){
-
-            xMap[ch] = xMap[ch] + ch.toString()
-        }else{
-
-            xMap[ch] = ch.toString()
-        }
-    }
-
-    for (ch in Y){
-
-        if(xMap.containsKey(ch)) {
-
-            if (yMap.containsKey(ch)) {
-                yMap[ch] = yMap[ch] + ch.toString()
-            }
-            else {
-                yMap[ch] = ch.toString()
-            }
-        }
-    }
-
-    var yKey = yMap.keys.sortedDescending()
-
-    for (y in yKey){
-
-
-            var xString = xMap[y]!!
-            var yString = yMap[y]!!
-
-            answer += if (xString.length >= yString.length) yString else xString
+        if (widthArray[countWidth][0] > heightArray[countHeight][1] && widthArray[countWidth][1] >= heightArray[countHeight][0] && widthArray[countWidth][1] > heightArray[countHeight][0]){
+            countHeight += 1
+        }else if (widthArray[countWidth][0] < heightArray[countHeight][1] && widthArray[countWidth][1] <= heightArray[countHeight][0] && widthArray[countWidth][1] < heightArray[countHeight][0]){
+            countWidth += 1
+        }else if (widthArray[countWidth][0] == heightArray[countHeight][1] && widthArray[countWidth][1] < heightArray[countHeight][0] && widthArray[countWidth][1] <= widthArray[countWidth][0]){
+            countWidth += 1
+        }else if (widthArray[countWidth][0] == heightArray[countHeight][1] && widthArray[countWidth][1] > heightArray[countHeight][0] && heightArray[countHeight][1] >= heightArray[countHeight][0]){
+            countHeight += 1
+        }else break
 
     }
 
-
-
-    if (answer == "") return "-1"
-    if (answer.startsWith("0")) return "0"
-
+    answer = widthArray[countWidth][0] * heightArray[countHeight][1]
     println(answer)
     return answer
 }
