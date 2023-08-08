@@ -23,9 +23,9 @@ fun solution(sizes: Array<IntArray>): Int {
     while (countHeight < widthArray.size && countWidth < widthArray.size){
 
 
-        if (widthArray[countWidth][0] > heightArray[countHeight][1] && widthArray[countWidth][1] >= heightArray[countHeight][0] && widthArray[countWidth][1] > heightArray[countHeight][0]){
+        if (widthArray[countWidth][0] > heightArray[countHeight][1] && heightArray[countHeight][1] > heightArray[countHeight][0]){
             countHeight += 1
-        }else if (widthArray[countWidth][0] < heightArray[countHeight][1] && widthArray[countWidth][1] <= heightArray[countHeight][0] && widthArray[countWidth][1] < heightArray[countHeight][0]){
+        }else if (widthArray[countWidth][0] < heightArray[countHeight][1] && widthArray[countWidth][1] <= widthArray[countWidth][0]){
             countWidth += 1
         }else if (widthArray[countWidth][0] == heightArray[countHeight][1] && widthArray[countWidth][1] < heightArray[countHeight][0] && widthArray[countWidth][1] <= widthArray[countWidth][0]){
             countWidth += 1
